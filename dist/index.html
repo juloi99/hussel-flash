@@ -111,12 +111,8 @@
               <button id="spin-wheel" class="wheel-center" type="button"><span data-i18n="spin">Draai</span></button>
             </div>
             <div class="wheel-actions">
-              <button id="quick-pick" class="flits-primary" type="button">⚡ <span data-i18n="quickPick">Kies direct</span></button>
-              <button id="spin-button" class="flits-secondary" type="button">↻ <span data-i18n="spinWheel">Draai aan het wiel</span></button>
-            </div>
-            <div class="wheel-shortcuts" aria-label="Sneltoetsen">
-              <span><kbd>Enter</kbd> <span data-i18n="shortcutDirect">kies direct</span></span>
-              <span><kbd>Spatie</kbd> <span data-i18n="shortcutSpin">draai het wiel</span></span>
+              <div class="wheel-action"><button id="quick-pick" class="flits-primary" type="button">⚡ <span data-i18n="quickPick">Kies direct</span></button><kbd>Enter</kbd></div>
+              <div class="wheel-action"><button id="spin-button" class="flits-secondary" type="button">↻ <span data-i18n="spinWheel">Draai aan het wiel</span></button><kbd>Spatie</kbd></div>
             </div>
             <div id="winner" class="winner" hidden aria-live="assertive"><small data-i18n="chosen">Gekozen naam</small><strong id="winner-name"></strong><div><button id="remove-winner" type="button" data-i18n="removeFromWheel">Verwijder van wiel</button><button id="close-winner" type="button" data-i18n="close">Sluiten</button></div></div>
           </section>
