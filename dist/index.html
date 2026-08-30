@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f3ed" />
+    <meta name="description" content="Verdeel namen eerlijk en willekeurig over groepjes, met lokaal opgeslagen namenlijsten." />
+    <title>Hussel – Flash</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="tool-tabs" role="tablist" aria-label="Tools">
+        <button id="hussel-tab" class="tool-tab active" type="button" role="tab" aria-selected="true" aria-controls="hussel-tool"><span class="brand-mark">H</span><span>Hussel</span></button>
+        <button id="flits-tab" class="tool-tab flits-tab" type="button" role="tab" aria-selected="false" aria-controls="flits-tool"><span class="brand-mark flits-mark">F</span><span>Flash</span></button>
+      </div>
+      <div class="header-actions">
+        <button id="data-export" class="header-button" type="button" data-i18n="backup">Back-up</button>
+        <label class="header-button file-button"><span data-i18n="restore">Overzetten</span><input id="data-import" type="file" accept="application/json,.json" /></label>
+        <button id="language-button" class="language-button" type="button" aria-label="Passer au français">FR</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section id="hussel-tool" role="tabpanel" aria-labelledby="hussel-tab">
+      <div class="workspace">
+        <section class="panel setup-panel" aria-labelledby="setup-title">
+          <div class="panel-heading">
+            <div><span class="step">1</span><h2 id="setup-title" data-i18n="participants">Wie doen er mee?</h2></div>
+            <span id="name-count" class="count">0 namen</span>
+          </div>
+
+          <div class="set-row">
+            <label for="set-select" data-i18n="fixedList">Vaste namenlijst</label>
+            <div class="select-line">
+              <select id="set-select" aria-describedby="set-help"><option value="">Losse invoer</option></select>
+              <button id="new-set" class="icon-button" type="button" aria-label="Nieuwe namenlijst">＋</button>
+              <button id="set-menu-button" class="icon-button" type="button" aria-label="Acties voor namenlijst" aria-expanded="false">•••</button>
+            </div>
+            <p id="set-help" class="field-help" data-i18n="listHelp">Selecteer een lijst of werk eenmalig met losse namen.</p>
+            <div id="set-menu" class="set-menu" hidden>
+              <button type="button" data-action="rename" data-i18n="rename">Hernoemen</button>
+              <button type="button" data-action="duplicate" data-i18n="duplicate">Dupliceren</button>
+              <button type="button" data-action="delete" class="danger-text" data-i18n="delete">Verwijderen</button>
+            </div>
+          </div>
+
+          <label class="textarea-label" for="names"><span data-i18n="names">Namen</span> <span data-i18n="onePerLine">één per regel</span></label>
+          <textarea id="names" rows="10" placeholder="Noor&#10;Sem&#10;Yara&#10;Milan" spellcheck="false" aria-describedby="names-help validation-message"></textarea>
+          <div class="under-field">
+            <p id="names-help" data-i18n="duplicatesHelp">Lege regels en dubbele namen worden overgeslagen.</p>
+            <button id="clear-names" class="text-button" type="button" data-i18n="clear">Wis invoer</button>
+          </div>
+          <p id="validation-message" class="validation" role="alert" hidden></p>
+
+          <fieldset>
+            <legend><span class="step">2</span><span data-i18n="divideHow">Hoe wil je verdelen?</span></legend>
+            <div class="mode-switch">
+              <label><input type="radio" name="mode" value="groups" checked /><span data-i18n="groupCount">Aantal groepen</span></label>
+              <label><input type="radio" name="mode" value="size" /><span data-i18n="groupSize">Personen per groep</span></label>
+            </div>
+            <div class="number-row">
+              <button id="minus" type="button" aria-label="Verlaag aantal">−</button>
+              <input id="amount" type="number" inputmode="numeric" min="1" max="99" value="3" aria-label="Aantal groepen" />
+              <button id="plus" type="button" aria-label="Verhoog aantal">＋</button>
+              <div><strong id="amount-label">groepen</strong><small id="distribution-hint">Voeg namen toe voor een verdeling</small></div>
+            </div>
+          </fieldset>
+
+          <button id="draw-button" class="primary-button" type="button"><span aria-hidden="true">✦</span> <span data-i18n="makeGroups">Maak de groepjes</span></button>
+        </section>
+
+        <section class="panel results-panel" aria-labelledby="results-title">
+          <div class="panel-heading result-heading">
+            <div><span class="step coral">3</span><h2 id="results-title" data-i18n="theGroups">De groepjes</h2></div>
+            <button id="redraw-button" class="secondary-button" type="button" hidden>↻ <span data-i18n="redraw">Opnieuw loten</span></button>
+          </div>
+          <div id="empty-state" class="empty-state">
+            <div class="shuffle-art" aria-hidden="true"><span>1</span><span>2</span><span>3</span></div>
+            <h3 data-i18n="emptyTitle">Nog even husselen…</h3>
+            <p data-i18n="emptyText">Vul links de namen in en maak je eerste verdeling.</p>
+          </div>
+          <div id="results-summary" class="results-summary" hidden aria-live="polite"></div>
+          <div id="export-actions" class="export-actions" hidden>
+            <label class="distribution-name"><span data-i18n="distributionName">Naam van deze verdeling</span><input id="distribution-name" maxlength="80" /></label>
+            <button id="pdf-export" class="secondary-button" type="button">PDF</button>
+            <button id="csv-export" class="secondary-button" type="button" data-i18n="excelExport">Excel (.csv)</button>
+          </div>
+          <div id="groups" class="groups" aria-live="polite"></div>
+        </section>
+      </div>
+
+      <section class="panel history-panel" aria-labelledby="history-title">
+        <div class="panel-heading">
+          <div><span class="step">4</span><h2 id="history-title" data-i18n="history">Geschiedenis</h2></div>
+          <button id="clear-history" class="text-button danger-text" type="button" data-i18n="clearHistory">Wis geschiedenis</button>
+        </div>
+        <p id="history-empty" class="history-empty" data-i18n="historyEmpty">Nog geen verdelingen gemaakt.</p>
+        <div id="history-list" class="history-list"></div>
+      </section>
+      </section>
+
+      <section id="flits-tool" class="flits-tool" role="tabpanel" aria-labelledby="flits-tab" hidden>
+        <div class="flits-grid">
+          <section class="panel wheel-panel" aria-labelledby="flits-title">
+            <div class="flits-heading"><div><span class="flits-dot"></span><div><p class="eyebrow">Random picker</p><h1 id="flits-title">Flash</h1></div></div></div>
+            <div class="wheel-wrap">
+              <div class="wheel-pointer" aria-hidden="true"></div>
+              <canvas id="wheel" width="620" height="620" aria-label="Rad met namen"></canvas>
+              <button id="spin-wheel" class="wheel-center" type="button"><span data-i18n="spin">Draai</span></button>
+            </div>
+            <div class="wheel-actions">
+              <button id="quick-pick" class="flits-primary" type="button">⚡ <span data-i18n="quickPick">Kies direct</span></button>
+              <button id="spin-button" class="flits-secondary" type="button">↻ <span data-i18n="spinWheel">Draai aan het wiel</span></button>
+            </div>
+            <div id="winner" class="winner" hidden aria-live="assertive"><small data-i18n="chosen">Gekozen naam</small><strong id="winner-name"></strong><div><button id="remove-winner" type="button" data-i18n="removeFromWheel">Verwijder van wiel</button><button id="close-winner" type="button" data-i18n="close">Sluiten</button></div></div>
+          </section>
+
+          <aside class="panel flits-settings" aria-labelledby="flits-settings-title">
+            <div class="panel-heading"><div><span class="flits-step">1</span><h2 id="flits-settings-title" data-i18n="wheelEntries">Namen op het wiel</h2></div><span id="wheel-count" class="count"></span></div>
+            <label for="wheel-set" data-i18n="fixedList">Vaste namenlijst</label>
+            <select id="wheel-set"></select>
+            <label class="textarea-label" for="wheel-names"><span data-i18n="names">Namen</span><span data-i18n="onePerLine">één per regel</span></label>
+            <textarea id="wheel-names" rows="9" spellcheck="false"></textarea>
+            <p class="field-help" data-i18n="wheelDatasetHelp">Wijzigingen hier zijn tijdelijk en veranderen je vaste dataset niet.</p>
+            <fieldset class="wheel-options"><legend><span class="flits-step">2</span><span data-i18n="wheelOptions">Wielinstellingen</span></legend>
+              <label><span data-i18n="spinDuration">Draaitijd</span><select id="spin-duration"><option value="3000">3 sec</option><option value="5000" selected>5 sec</option><option value="8000">8 sec</option></select></label>
+              <label class="toggle-row"><span data-i18n="sound">Geluid</span><input id="wheel-sound" type="checkbox" checked /></label>
+              <label class="toggle-row"><span data-i18n="autoRemove">Winnaar automatisch verwijderen</span><input id="auto-remove" type="checkbox" /></label>
+            </fieldset>
+            <div class="wheel-history"><div><h3 data-i18n="recentPicks">Recente keuzes</h3><button id="clear-wheel-history" class="text-button" type="button" data-i18n="clear">Wis invoer</button></div><ol id="wheel-history"></ol><p id="wheel-history-empty" class="field-help" data-i18n="noPicks">Nog geen namen gekozen.</p></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="set-dialog" aria-labelledby="dialog-title">
+      <form method="dialog" id="set-form">
+        <button id="dialog-close" class="dialog-close" type="button" aria-label="Sluiten">×</button>
+        <p class="eyebrow" data-i18n="nameList">Namenlijst</p>
+        <h2 id="dialog-title">Nieuwe lijst</h2>
+        <label for="set-name" data-i18n="listName">Naam van de lijst</label>
+        <input id="set-name" maxlength="50" autocomplete="off" placeholder="Bijvoorbeeld Klas 2B" />
+        <p id="dialog-error" class="validation" role="alert" hidden></p>
+        <div class="dialog-actions"><button id="dialog-cancel" type="button" class="secondary-button" data-i18n="cancel">Annuleren</button><button id="dialog-save" type="submit" class="primary-button" data-i18n="save">Opslaan</button></div>
+      </form>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
