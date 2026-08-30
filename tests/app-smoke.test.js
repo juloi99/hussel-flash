@@ -40,6 +40,10 @@ test('taal, geschiedenis en beide resultaatexports zijn aanwezig', () => {
   assert.match(app, /crypto\?\.getRandomValues/);
   assert.match(app, /AudioContext/);
   assert.match(app, /remove-winner'\)\.hidden=w\.autoRemove\.checked/);
+  assert.match(app, /event\.key==='Enter'/);
+  assert.match(app, /event\.code==='Space'/);
+  assert.match(html, /<kbd>Enter<\/kbd>/);
+  assert.match(html, /<kbd>Spatie<\/kbd>/);
   assert.doesNotMatch(app, /text\('Hussel'/);
   assert.doesNotMatch(app, /Eerlijk verdeeld met Hussel/);
 });
