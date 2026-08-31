@@ -33,6 +33,9 @@ test('taal, geschiedenis en beide resultaatexports zijn aanwezig', () => {
   assert.match(app, /function wheelClick\(/);
   assert.match(app, /__flashWoodImpulse/);
   assert.match(app, /filter\.type='bandpass'/);
+  assert.match(app, /soften\.type='lowpass'/);
+  assert.match(app, /bounce\.start\(now\+\.009\)/);
+  assert.match(app, /body\.type='sine'/);
   assert.doesNotMatch(app, /osc\.type='square'/);
   assert.match(app, /function quickPick\(/);
   assert.match(app, /function nextWheelIndex\(/);
