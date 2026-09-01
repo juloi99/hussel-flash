@@ -15,7 +15,7 @@ De app bevat twee gereedschappen met gedeelde namenlijsten:
 - Leerlingen tijdelijk vastzetten in een groep en leerlingen tijdelijk accentueren
 - Geavanceerde modus met eenmalige of permanent aan een namenlijst gekoppelde samen-/apartregels
 - Laatste handmatige verplaatsingen en verwijderingen herstellen
-- Schermvullende presentatiemodus zonder bewerkingsmarkeringen
+- Schermvullende presentatiemodus waarin leerlingen nog verplaatst of uit de actuele verdeling verwijderd kunnen worden
 - Opschonen van lege regels en dubbele namen
 - Vaste namenlijsten aanmaken, selecteren, automatisch bijwerken, hernoemen, dupliceren en verwijderen
 - Duidelijke validatie, mobiele layout en toetsenbordbediening
@@ -27,7 +27,7 @@ De app bevat twee gereedschappen met gedeelde namenlijsten:
 - Een afzonderlijke verdeling hernoemen of verwijderen uit de geschiedenis
 - PDF opent eerst als liggend kaartenoverzicht in een nieuw tabblad; Excel-compatibele CSV kan direct worden gedownload
 - Back-up en herstel van lijsten en geschiedenis voor overdracht naar een andere browser
-- Flash met maximaal vijf gelijktijdige wielen, 3, 5 of 8 seconden draaitijd, één gezamenlijke geluidsbron, directe keuze en optioneel automatisch verwijderen
+- Flash met een eenvoudige modus voor één wiel en een geavanceerde modus voor maximaal vijf gelijktijdige wielen, 3, 5 of 8 seconden draaitijd, één gezamenlijke geluidsbron, directe keuze en optioneel automatisch verwijderen
 - Willekeurige trekking zonder teruglegging: iedereen komt eenmaal aan bod voordat een nieuwe ronde start
 - Recente Flash-keuzes worden lokaal bewaard en meegenomen in de back-up
 

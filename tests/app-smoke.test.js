@@ -6,7 +6,7 @@ const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const app = await readFile(new URL('../app.js', import.meta.url), 'utf8');
 
 test('lokale Chrome-versie gebruikt geen JavaScript-modules', () => {
-  assert.match(html, /<script defer src="app\.js"><\/script>/);
+  assert.match(html, /<script defer src="app\.js\?v=\d+-\d+"><\/script>/);
   assert.doesNotMatch(html, /type="module"/);
   assert.doesNotMatch(app, /^import\s/m);
 });
@@ -57,7 +57,7 @@ test('verborgen beginscherm kan niet door componentopmaak zichtbaar blijven', as
 });
 
 test('geavanceerde loting, herstel, presentatie en meerdere wielen zijn ingebouwd', () => {
-  for (const id of ['advanced-mode','rules-button','rules-dialog','undo-button','present-button','presentation','wheel-count-select']) {
+  for (const id of ['advanced-mode','rules-button','rules-dialog','undo-button','present-button','presentation','flash-advanced-mode','flash-advanced-options','wheel-count-select']) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(app, /function constrainedGroups\(/);
@@ -69,4 +69,9 @@ test('geavanceerde loting, herstel, presentatie en meerdere wielen zijn ingebouw
   assert.match(app, /wheelRotations=\[0\]/);
   assert.match(app, /Math\.min\(5,/);
   assert.match(app, /set\.rules=rules/);
+  assert.match(app, /const wheelTotal=/);
+  assert.match(app, /data-presentation-move/);
+  assert.match(app, /data-presentation-remove/);
+  assert.match(app, /\$\('#csv-export'\)\.hidden=!event\.target\.checked/);
+  assert.match(app, /winnerName\.innerHTML=winners\.map/);
 });

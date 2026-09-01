@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#f6f3ed" />
     <meta name="description" content="Verdeel namen eerlijk en willekeurig over groepjes, met lokaal opgeslagen namenlijsten." />
     <title>Hussel – Flash</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="app.js"></script>
+    <link rel="stylesheet" href="styles.css?v=20260901-2" />
+    <script defer src="app.js?v=20260901-2"></script>
   </head>
   <body>
     <header class="site-header">
@@ -90,7 +90,7 @@
           <div id="export-actions" class="export-actions" hidden>
             <label class="distribution-name"><span data-i18n="distributionName">Naam van deze verdeling</span><input id="distribution-name" maxlength="80" /></label>
             <button id="pdf-export" class="secondary-button" type="button">PDF</button>
-            <button id="csv-export" class="secondary-button" type="button" data-i18n="excelExport">Excel (.csv)</button>
+            <button id="csv-export" class="secondary-button" type="button" data-i18n="excelExport" hidden>Excel (.csv)</button>
             <button id="present-button" class="secondary-button" type="button" data-i18n="present">Presenteren</button>
           </div>
           <div id="groups" class="groups" aria-live="polite"></div>
@@ -132,7 +132,8 @@
             <p class="field-help" data-i18n="wheelDatasetHelp">Wijzigingen hier zijn tijdelijk en veranderen je vaste dataset niet.</p>
             <fieldset class="wheel-options"><legend><span class="flits-step">2</span><span data-i18n="wheelOptions">Wielinstellingen</span></legend>
               <label><span data-i18n="spinDuration">Draaitijd</span><select id="spin-duration"><option value="3000">3 sec</option><option value="5000" selected>5 sec</option><option value="8000">8 sec</option></select></label>
-              <label><span data-i18n="wheelCount">Aantal wielen</span><select id="wheel-count-select"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>
+              <label class="advanced-toggle flash-advanced-toggle"><span data-i18n="advancedMode">Geavanceerde modus</span><input id="flash-advanced-mode" type="checkbox" /></label>
+              <div id="flash-advanced-options" hidden><label><span data-i18n="wheelCount">Aantal wielen</span><select id="wheel-count-select"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label></div>
               <label class="toggle-row"><span data-i18n="sound">Geluid</span><input id="wheel-sound" type="checkbox" checked /></label>
               <label class="toggle-row"><span data-i18n="autoRemove">Winnaar automatisch verwijderen</span><input id="auto-remove" type="checkbox" /></label>
             </fieldset>
