@@ -57,7 +57,7 @@ test('verborgen beginscherm kan niet door componentopmaak zichtbaar blijven', as
 });
 
 test('geavanceerde loting, herstel, presentatie en meerdere wielen zijn ingebouwd', () => {
-  for (const id of ['advanced-mode','rules-button','rules-dialog','undo-button','present-button','presentation','flash-advanced-mode','flash-advanced-options','wheel-count-select']) {
+  for (const id of ['advanced-mode','rules-button','rules-dialog','undo-button','present-button','presentation','presentation-edit','flash-advanced-mode','flash-advanced-options','wheel-count-select']) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(app, /function constrainedGroups\(/);
@@ -72,6 +72,8 @@ test('geavanceerde loting, herstel, presentatie en meerdere wielen zijn ingebouw
   assert.match(app, /const wheelTotal=/);
   assert.match(app, /data-presentation-remove/);
   assert.match(app, /data-presentation-person/);
+  assert.match(app, /presentationEditing/);
+  assert.doesNotMatch(html, /id="presentation-title"/);
   assert.match(app, /function prepareWheelAudio\(/);
   assert.match(app, /await audio\.resume\(\)/);
   assert.match(app, /\$\('#csv-export'\)\.hidden=!event\.target\.checked/);
