@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#f6f3ed" />
     <meta name="description" content="Verdeel namen eerlijk en willekeurig over groepjes, met lokaal opgeslagen namenlijsten." />
     <title>Hussel – Flash</title>
-    <link rel="stylesheet" href="styles.css?v=20260901-5" />
-    <script defer src="app.js?v=20260901-5"></script>
+    <link rel="stylesheet" href="styles.css?v=20260901-7" />
+    <script defer src="app.js?v=20260901-7"></script>
   </head>
   <body>
     <header class="site-header">
@@ -105,6 +105,7 @@
         </div>
         <p id="history-empty" class="history-empty" data-i18n="historyEmpty">Nog geen verdelingen gemaakt.</p>
         <div id="history-list" class="history-list"></div>
+        <button id="history-more" class="history-more secondary-button" type="button" data-i18n="viewMore" hidden>Meer bekijken</button>
       </section>
       </section>
 
@@ -174,6 +175,14 @@
         <div id="stats-periods" class="period-switch" role="group" aria-label="Periode"><button type="button" data-period="all" class="active" data-i18n="periodAll">Altijd</button><button type="button" data-period="3months" data-i18n="period3Months">3 maanden</button><button type="button" data-period="month" data-i18n="periodMonth">Maand</button><button type="button" data-period="week" data-i18n="periodWeek">Week</button><button type="button" data-period="today" data-i18n="periodToday">Vandaag</button></div>
         <p id="stats-summary" class="stats-summary"></p><div id="stats-results" class="stats-results"></div><p id="stats-empty" class="history-empty" data-i18n="statsEmpty" hidden>Geen verdelingen gevonden voor deze selectie.</p>
       </form>
+    </dialog>
+    <dialog id="history-dialog" class="history-dialog" aria-labelledby="history-dialog-title">
+      <div class="history-dialog-inner">
+        <button id="history-dialog-close" class="dialog-close" type="button" aria-label="Sluiten">×</button>
+        <p class="eyebrow" data-i18n="history">Geschiedenis</p>
+        <h2 id="history-dialog-title" data-i18n="fullHistory">Volledige geschiedenis</h2>
+        <div id="history-dialog-list" class="history-list history-dialog-list"></div>
+      </div>
     </dialog>
     <div id="presentation" class="presentation" hidden role="dialog" aria-modal="true" aria-label="Presentatiemodus">
       <header><button id="presentation-edit" class="presentation-edit" type="button" aria-label="Bewerken" aria-pressed="false">✎</button><button id="presentation-close" type="button" aria-label="Sluiten">×</button></header><div id="presentation-groups" class="presentation-groups"></div>

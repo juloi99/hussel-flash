@@ -83,4 +83,10 @@ test('geavanceerde loting, herstel, presentatie en meerdere wielen zijn ingebouw
   assert.match(app, /function statsCutoff\(/);
   assert.match(app, /data-period/);
   assert.match(app, /pair-stats-button/);
+  assert.match(app, /function historicalPairCounts\(/);
+  assert.match(app, /function candidatePairCost\(/);
+  assert.match(app, /function todayPairRepeats\(/);
+  assert.match(app, /class="repeat-warning"/);
+  for (const id of ['history-more','history-dialog','history-dialog-list']) assert.match(html, new RegExp(`id="${id}"`));
+  assert.match(app, /state\.history\.slice\(0,5\)/);
 });
