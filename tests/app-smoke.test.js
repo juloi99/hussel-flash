@@ -70,8 +70,11 @@ test('geavanceerde loting, herstel, presentatie en meerdere wielen zijn ingebouw
   assert.match(app, /Math\.min\(5,/);
   assert.match(app, /set\.rules=rules/);
   assert.match(app, /const wheelTotal=/);
-  assert.match(app, /data-presentation-move/);
   assert.match(app, /data-presentation-remove/);
+  assert.match(app, /data-presentation-person/);
+  assert.match(app, /function prepareWheelAudio\(/);
+  assert.match(app, /await audio\.resume\(\)/);
   assert.match(app, /\$\('#csv-export'\)\.hidden=!event\.target\.checked/);
   assert.match(app, /winnerName\.innerHTML=winners\.map/);
+  assert.doesNotMatch(app, /'Keuze':'Choix'/);
 });
