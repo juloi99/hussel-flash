@@ -14,6 +14,8 @@ De app bevat twee gereedschappen met gedeelde namenlijsten:
 - Opnieuw loten zonder opnieuw invoeren
 - Leerlingen tijdelijk vastzetten in een groep en leerlingen tijdelijk accentueren
 - Geavanceerde modus met eenmalige of permanent aan een namenlijst gekoppelde samen-/apartregels
+- Samenwerkingsstatistieken per dataset en leerling voor altijd, drie maanden, één maand, één week of vandaag
+- Contextuele Geavanceerd-schakelaar in de kopbalk voor zowel Hussel als Flash
 - Laatste handmatige verplaatsingen en verwijderingen herstellen
 - Schermvullende presentatiemodus in dezelfde kaartenstijl, waarin leerlingen met slepen of aantikken kunnen worden verplaatst en uit de actuele verdeling verwijderd
 - Opschonen van lege regels en dubbele namen

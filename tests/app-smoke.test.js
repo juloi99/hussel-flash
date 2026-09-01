@@ -57,7 +57,7 @@ test('verborgen beginscherm kan niet door componentopmaak zichtbaar blijven', as
 });
 
 test('geavanceerde loting, herstel, presentatie en meerdere wielen zijn ingebouwd', () => {
-  for (const id of ['advanced-mode','rules-button','rules-dialog','undo-button','present-button','presentation','presentation-edit','flash-advanced-mode','flash-advanced-options','wheel-count-select']) {
+  for (const id of ['advanced-mode','hussel-advanced-control','flash-advanced-control','rules-button','rules-dialog','undo-button','present-button','presentation','presentation-edit','flash-advanced-mode','flash-advanced-options','wheel-count-select','pair-stats-button','stats-dialog','stats-dataset','stats-student','stats-periods','stats-results']) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(app, /function constrainedGroups\(/);
@@ -79,4 +79,8 @@ test('geavanceerde loting, herstel, presentatie en meerdere wielen zijn ingebouw
   assert.match(app, /\$\('#csv-export'\)\.hidden=!event\.target\.checked/);
   assert.match(app, /winnerName\.innerHTML=winners\.map/);
   assert.doesNotMatch(app, /'Keuze':'Choix'/);
+  assert.match(app, /function renderPairStats\(/);
+  assert.match(app, /function statsCutoff\(/);
+  assert.match(app, /data-period/);
+  assert.match(app, /pair-stats-button/);
 });

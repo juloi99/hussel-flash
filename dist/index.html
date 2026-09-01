@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#f6f3ed" />
     <meta name="description" content="Verdeel namen eerlijk en willekeurig over groepjes, met lokaal opgeslagen namenlijsten." />
     <title>Hussel – Flash</title>
-    <link rel="stylesheet" href="styles.css?v=20260901-4" />
-    <script defer src="app.js?v=20260901-4"></script>
+    <link rel="stylesheet" href="styles.css?v=20260901-5" />
+    <script defer src="app.js?v=20260901-5"></script>
   </head>
   <body>
     <header class="site-header">
@@ -16,6 +16,8 @@
         <button id="flits-tab" class="tool-tab flits-tab" type="button" role="tab" aria-selected="false" aria-controls="flits-tool"><span class="brand-mark flits-mark">F</span><span>Flash</span></button>
       </div>
       <div class="header-actions">
+        <label id="hussel-advanced-control" class="header-advanced"><span data-i18n="advancedMode">Geavanceerd</span><input id="advanced-mode" type="checkbox" /></label>
+        <label id="flash-advanced-control" class="header-advanced flash-header-advanced" hidden><span data-i18n="advancedMode">Geavanceerd</span><input id="flash-advanced-mode" type="checkbox" /></label>
         <button id="data-export" class="header-button" type="button" data-i18n="backup">Back-up</button>
         <label class="header-button file-button"><span data-i18n="restore">Overzetten</span><input id="data-import" type="file" accept="application/json,.json" /></label>
         <button id="language-button" class="language-button" type="button" aria-label="Passer au français">FR</button>
@@ -66,7 +68,6 @@
               <button id="plus" type="button" aria-label="Verhoog aantal">＋</button>
               <div><strong id="amount-label">groepen</strong><small id="distribution-hint">Voeg namen toe voor een verdeling</small></div>
             </div>
-            <label class="advanced-toggle"><span data-i18n="advancedMode">Geavanceerde modus</span><input id="advanced-mode" type="checkbox" /></label>
             <div id="advanced-options" class="rules-row" hidden>
               <div><strong data-i18n="rules">Regels</strong><small id="rules-summary" data-i18n="noRules">Geen regels ingesteld</small></div>
               <button id="rules-button" class="secondary-button" type="button" data-i18n="setRules">Regels instellen</button>
@@ -100,7 +101,7 @@
       <section class="panel history-panel" aria-labelledby="history-title">
         <div class="panel-heading">
           <div><span class="step">4</span><h2 id="history-title" data-i18n="history">Geschiedenis</h2></div>
-          <button id="clear-history" class="text-button danger-text" type="button" data-i18n="clearHistory">Wis geschiedenis</button>
+          <div class="history-heading-actions"><button id="pair-stats-button" class="secondary-button" type="button" data-i18n="pairStats" hidden>Samenzitten</button><button id="clear-history" class="text-button danger-text" type="button" data-i18n="clearHistory">Wis geschiedenis</button></div>
         </div>
         <p id="history-empty" class="history-empty" data-i18n="historyEmpty">Nog geen verdelingen gemaakt.</p>
         <div id="history-list" class="history-list"></div>
@@ -132,7 +133,6 @@
             <p class="field-help" data-i18n="wheelDatasetHelp">Wijzigingen hier zijn tijdelijk en veranderen je vaste dataset niet.</p>
             <fieldset class="wheel-options"><legend><span class="flits-step">2</span><span data-i18n="wheelOptions">Wielinstellingen</span></legend>
               <label><span data-i18n="spinDuration">Draaitijd</span><select id="spin-duration"><option value="3000">3 sec</option><option value="5000" selected>5 sec</option><option value="8000">8 sec</option></select></label>
-              <label class="advanced-toggle flash-advanced-toggle"><span data-i18n="advancedMode">Geavanceerde modus</span><input id="flash-advanced-mode" type="checkbox" /></label>
               <div id="flash-advanced-options" hidden><label><span data-i18n="wheelCount">Aantal wielen</span><select id="wheel-count-select"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label></div>
               <label class="toggle-row"><span data-i18n="sound">Geluid</span><input id="wheel-sound" type="checkbox" checked /></label>
               <label class="toggle-row"><span data-i18n="autoRemove">Winnaar automatisch verwijderen</span><input id="auto-remove" type="checkbox" /></label>
@@ -164,6 +164,15 @@
         <label id="persistent-rule-row" class="persistent-rule"><input id="rules-persistent" type="checkbox" /><span data-i18n="alwaysRules">Altijd toepassen voor deze vaste namenlijst</span></label>
         <p id="rules-error" class="validation" hidden></p>
         <div class="dialog-actions"><button id="rules-cancel" type="button" class="secondary-button" data-i18n="cancel">Annuleren</button><button type="submit" class="primary-button" data-i18n="save">Opslaan</button></div>
+      </form>
+    </dialog>
+    <dialog id="stats-dialog" class="stats-dialog" aria-labelledby="stats-title">
+      <form method="dialog">
+        <button id="stats-close" class="dialog-close" type="button" aria-label="Sluiten">×</button>
+        <p class="eyebrow" data-i18n="history">Geschiedenis</p><h2 id="stats-title" data-i18n="pairStatsTitle">Wie zat al samen?</h2>
+        <div class="stats-filters"><label><span data-i18n="dataset">Dataset</span><select id="stats-dataset"></select></label><label><span data-i18n="student">Leerling</span><select id="stats-student"></select></label></div>
+        <div id="stats-periods" class="period-switch" role="group" aria-label="Periode"><button type="button" data-period="all" class="active" data-i18n="periodAll">Altijd</button><button type="button" data-period="3months" data-i18n="period3Months">3 maanden</button><button type="button" data-period="month" data-i18n="periodMonth">Maand</button><button type="button" data-period="week" data-i18n="periodWeek">Week</button><button type="button" data-period="today" data-i18n="periodToday">Vandaag</button></div>
+        <p id="stats-summary" class="stats-summary"></p><div id="stats-results" class="stats-results"></div><p id="stats-empty" class="history-empty" data-i18n="statsEmpty" hidden>Geen verdelingen gevonden voor deze selectie.</p>
       </form>
     </dialog>
     <div id="presentation" class="presentation" hidden role="dialog" aria-modal="true" aria-label="Presentatiemodus">
