@@ -55,3 +55,18 @@ test('verborgen beginscherm kan niet door componentopmaak zichtbaar blijven', as
   const css = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
   assert.match(css, /\[hidden\]\s*\{\s*display:none!important;/);
 });
+
+test('geavanceerde loting, herstel, presentatie en meerdere wielen zijn ingebouwd', () => {
+  for (const id of ['advanced-mode','rules-button','rules-dialog','undo-button','present-button','presentation','wheel-count-select']) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+  assert.match(app, /function constrainedGroups\(/);
+  assert.match(app, /function rulesSatisfied\(/);
+  assert.match(app, /function undoGroups\(/);
+  assert.match(app, /function presentGroups\(/);
+  assert.match(app, /data-pin-person/);
+  assert.match(app, /data-highlight-person/);
+  assert.match(app, /wheelRotations=\[0\]/);
+  assert.match(app, /Math\.min\(5,/);
+  assert.match(app, /set\.rules=rules/);
+});

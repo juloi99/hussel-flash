@@ -66,6 +66,11 @@
               <button id="plus" type="button" aria-label="Verhoog aantal">＋</button>
               <div><strong id="amount-label">groepen</strong><small id="distribution-hint">Voeg namen toe voor een verdeling</small></div>
             </div>
+            <label class="advanced-toggle"><span data-i18n="advancedMode">Geavanceerde modus</span><input id="advanced-mode" type="checkbox" /></label>
+            <div id="advanced-options" class="rules-row" hidden>
+              <div><strong data-i18n="rules">Regels</strong><small id="rules-summary" data-i18n="noRules">Geen regels ingesteld</small></div>
+              <button id="rules-button" class="secondary-button" type="button" data-i18n="setRules">Regels instellen</button>
+            </div>
           </fieldset>
 
           <button id="draw-button" class="primary-button" type="button"><span aria-hidden="true">✦</span> <span data-i18n="makeGroups">Maak de groepjes</span></button>
@@ -74,7 +79,7 @@
         <section class="panel results-panel" aria-labelledby="results-title">
           <div class="panel-heading result-heading">
             <div><span class="step coral">3</span><h2 id="results-title" data-i18n="theGroups">De groepjes</h2></div>
-            <button id="redraw-button" class="secondary-button" type="button" hidden>↻ <span data-i18n="redraw">Opnieuw loten</span></button>
+            <div class="result-tools"><button id="undo-button" class="secondary-button" type="button" hidden>↶ <span data-i18n="undo">Herstel</span></button><button id="redraw-button" class="secondary-button" type="button" hidden>↻ <span data-i18n="redraw">Opnieuw loten</span></button></div>
           </div>
           <div id="empty-state" class="empty-state">
             <div class="shuffle-art" aria-hidden="true"><span>1</span><span>2</span><span>3</span></div>
@@ -86,6 +91,7 @@
             <label class="distribution-name"><span data-i18n="distributionName">Naam van deze verdeling</span><input id="distribution-name" maxlength="80" /></label>
             <button id="pdf-export" class="secondary-button" type="button">PDF</button>
             <button id="csv-export" class="secondary-button" type="button" data-i18n="excelExport">Excel (.csv)</button>
+            <button id="present-button" class="secondary-button" type="button" data-i18n="present">Presenteren</button>
           </div>
           <div id="groups" class="groups" aria-live="polite"></div>
         </section>
@@ -105,11 +111,11 @@
         <div class="flits-grid">
           <section class="panel wheel-panel" aria-labelledby="flits-title">
             <div class="flits-heading"><div><span class="flits-dot"></span><div><p class="eyebrow">Random picker</p><h1 id="flits-title">Flash</h1></div></div></div>
-            <div class="wheel-wrap">
+            <div id="wheel-grid" class="wheel-grid"><div class="wheel-wrap">
               <div class="wheel-pointer" aria-hidden="true"></div>
               <canvas id="wheel" width="620" height="620" aria-label="Rad met namen"></canvas>
               <button id="spin-wheel" class="wheel-center" type="button"><span data-i18n="spin">Draai</span></button>
-            </div>
+            </div></div>
             <div class="wheel-actions">
               <div class="wheel-action"><button id="quick-pick" class="flits-primary" type="button">⚡ <span data-i18n="quickPick">Kies direct</span></button><kbd>Enter</kbd></div>
               <div class="wheel-action"><button id="spin-button" class="flits-secondary" type="button">↻ <span data-i18n="spinWheel">Draai aan het wiel</span></button><kbd>Spatie</kbd></div>
@@ -126,6 +132,7 @@
             <p class="field-help" data-i18n="wheelDatasetHelp">Wijzigingen hier zijn tijdelijk en veranderen je vaste dataset niet.</p>
             <fieldset class="wheel-options"><legend><span class="flits-step">2</span><span data-i18n="wheelOptions">Wielinstellingen</span></legend>
               <label><span data-i18n="spinDuration">Draaitijd</span><select id="spin-duration"><option value="3000">3 sec</option><option value="5000" selected>5 sec</option><option value="8000">8 sec</option></select></label>
+              <label><span data-i18n="wheelCount">Aantal wielen</span><select id="wheel-count-select"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>
               <label class="toggle-row"><span data-i18n="sound">Geluid</span><input id="wheel-sound" type="checkbox" checked /></label>
               <label class="toggle-row"><span data-i18n="autoRemove">Winnaar automatisch verwijderen</span><input id="auto-remove" type="checkbox" /></label>
             </fieldset>
@@ -146,6 +153,21 @@
         <div class="dialog-actions"><button id="dialog-cancel" type="button" class="secondary-button" data-i18n="cancel">Annuleren</button><button id="dialog-save" type="submit" class="primary-button" data-i18n="save">Opslaan</button></div>
       </form>
     </dialog>
+    <dialog id="rules-dialog" class="rules-dialog" aria-labelledby="rules-dialog-title">
+      <form method="dialog" id="rules-form">
+        <button id="rules-close" class="dialog-close" type="button" aria-label="Sluiten">×</button>
+        <p class="eyebrow" data-i18n="divideRules">Verdelingsregels</p><h2 id="rules-dialog-title" data-i18n="setRules">Regels instellen</h2>
+        <p class="field-help" data-i18n="rulesHelp">Kies twee leerlingen en bepaal of ze samen of apart moeten blijven.</p>
+        <div id="rule-list" class="rule-list"></div>
+        <button id="add-rule" class="secondary-button" type="button">＋ <span data-i18n="addRule">Regel toevoegen</span></button>
+        <label id="persistent-rule-row" class="persistent-rule"><input id="rules-persistent" type="checkbox" /><span data-i18n="alwaysRules">Altijd toepassen voor deze vaste namenlijst</span></label>
+        <p id="rules-error" class="validation" hidden></p>
+        <div class="dialog-actions"><button id="rules-cancel" type="button" class="secondary-button" data-i18n="cancel">Annuleren</button><button type="submit" class="primary-button" data-i18n="save">Opslaan</button></div>
+      </form>
+    </dialog>
+    <div id="presentation" class="presentation" hidden role="dialog" aria-modal="true" aria-labelledby="presentation-title">
+      <header><h2 id="presentation-title"></h2><button id="presentation-close" type="button" aria-label="Sluiten">×</button></header><div id="presentation-groups" class="presentation-groups"></div>
+    </div>
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
   </body>
 </html>
